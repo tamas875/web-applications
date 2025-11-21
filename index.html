@@ -2,19 +2,56 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Redirecting…</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Go to web app</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background: #0b0b0c;
+        color: #eee;
+      }
+      .card {
+        background: #161619;
+        padding: 24px 28px;
+        border-radius: 12px;
+        box-shadow: 0 6px 30px rgba(0,0,0,.35);
+        text-align: center;
+        max-width: 480px;
+      }
+      button {
+        font-size: 16px;
+        padding: 10px 16px;
+        border: 0;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      button:hover { transform: translateY(-1px); }
+      a { color: #9ecbff; }
+    </style>
+  </head>
 
-    <meta http-equiv="refresh" content="0; url=https://github.com/tamas875" />
-    <link rel="canonical" href="https://github.com/tamas875" />
+  <body>
+    <div class="card">
+      <h1>Web application</h1>
+      <p>Click the button to continue.</p>
+
+      <button id="go">Open app</button>
+
+      <p style="margin-top:14px;font-size:14px;opacity:.8">
+        Or use this link:
+        <a id="link" href="https://github.com/tamas875">https://github.com/tamas875</a>
+      </p>
+    </div>
 
     <script>
-      window.location.replace("https://github.com/tamas875");
+      const target = "https://github.com/tamas875";
+      document.getElementById("go").addEventListener("click", () => {
+        window.location.href = target;   // or window.location.replace(target)
+      });
     </script>
-  </head>
-  <body>
-    <p>
-      Redirecting to
-      <a href="https://github.com/tamas875">https://github.com/tamas875</a>…
-    </p>
   </body>
 </html>
