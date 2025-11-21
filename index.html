@@ -3,54 +3,176 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Go to web app</title>
+    <title>Web Applications</title>
+
     <style>
+      :root {
+        --bg: #0b0b0c;
+        --card: #151518;
+        --text: #e8e8ea;
+        --muted: #b3b3b8;
+        --border: #232327;
+      }
+
       body {
-        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        margin: 0;
+        min-height: 100vh;
         display: grid;
         place-items: center;
-        min-height: 100vh;
-        margin: 0;
-        background: #0b0b0c;
-        color: #eee;
+        background: radial-gradient(800px circle at 20% -10%, #1a1a22, transparent),
+                    radial-gradient(700px circle at 120% 10%, #161b2c, transparent),
+                    var(--bg);
+        color: var(--text);
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       }
+
+      .wrap {
+        width: min(920px, 92vw);
+        padding: 24px;
+      }
+
       .card {
-        background: #161619;
-        padding: 24px 28px;
-        border-radius: 12px;
-        box-shadow: 0 6px 30px rgba(0,0,0,.35);
-        text-align: center;
-        max-width: 480px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: clamp(18px, 3vw, 28px);
+        box-shadow: 0 10px 40px rgba(0,0,0,.45);
       }
-      button {
-        font-size: 16px;
-        padding: 10px 16px;
+
+      header h1 {
+        margin: 0 0 6px 0;
+        font-size: clamp(26px, 3.5vw, 36px);
+        letter-spacing: .3px;
+      }
+
+      header p {
+        margin: 0 0 18px 0;
+        color: var(--muted);
+        font-size: clamp(14px, 2vw, 16px);
+        line-height: 1.5;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 12px;
+      }
+
+      .app {
+        display: grid;
+        gap: 8px;
+        padding: 14px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: #111114;
+      }
+
+      .app h2 {
+        margin: 0;
+        font-size: 17px;
+        font-weight: 600;
+      }
+
+      .app p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.45;
+      }
+
+      .app button {
+        margin-top: 4px;
+        width: 100%;
         border: 0;
         border-radius: 10px;
+        padding: 10px 12px;
+        font-size: 15px;
+        font-weight: 600;
         cursor: pointer;
+        color: #0b0b0c;
+        background: #e8e8ea;
+        transition: transform .05s ease, opacity .15s ease;
       }
-      button:hover { transform: translateY(-1px); }
-      a { color: #9ecbff; }
+      .app button:hover { transform: translateY(-1px); opacity: .95; }
+      .app button:active { transform: translateY(0px); opacity: .9; }
+      .app button:focus-visible {
+        outline: 2px solid white;
+        outline-offset: 2px;
+      }
+
+      footer {
+        margin-top: 14px;
+        color: var(--muted);
+        font-size: 12.5px;
+        text-align: center;
+      }
+
+      a { color: inherit; }
     </style>
   </head>
 
   <body>
-    <div class="card">
-      <h1>Web application</h1>
-      <p>Click the button to continue.</p>
+    <main class="wrap">
+      <section class="card">
+        <header>
+          <h1>Web Applications</h1>
+          <p>
+            Access web applications previously developed.
+            Click on any card to open the corresponding application.
+          </p>
+        </header>
 
-      <button id="go">Open app</button>
+        <div id="apps" class="grid"></div>
 
-      <p style="margin-top:14px;font-size:14px;opacity:.8">
-        Or use this link:
-        <a id="link" href="https://github.com/tamas875">https://github.com/tamas875</a>
-      </p>
-    </div>
+        <footer>
+          Hosted on GitHub Pages ·
+          <a href="https://github.com/tamas875">github.com/tamas875</a>
+        </footer>
+      </section>
+    </main>
 
     <script>
-      const target = "https://github.com/tamas875";
-      document.getElementById("go").addEventListener("click", () => {
-        window.location.href = target;   // or window.location.replace(target)
+      // Edit this list to add/remove buttons.
+      const apps = [
+        {
+          title: "GitHub Profile",
+          desc: "Code, projects and repositories.",
+          url: "https://github.com/tamas875",
+          button: "Open GitHub"
+        },
+        {
+          title: "Blockchain demonstration 🧱",
+          desc: "A web application to demonstrate how blockchains work.",
+          url: "",
+          button: "Launch the application"
+        }
+      ];
+
+      const container = document.getElementById("apps");
+
+      apps.forEach(app => {
+        const card = document.createElement("div");
+        card.className = "app";
+
+        const h2 = document.createElement("h2");
+        h2.textContent = app.title;
+
+        const p = document.createElement("p");
+        p.textContent = app.desc;
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = app.button || "Open";
+        btn.addEventListener("click", () => {
+          window.location.href = app.url;
+          // use replace() if you don't want back button to return here:
+          // window.location.replace(app.url);
+        });
+
+        card.appendChild(h2);
+        card.appendChild(p);
+        card.appendChild(btn);
+        container.appendChild(card);
       });
     </script>
   </body>
